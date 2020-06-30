@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 订单的映射文件namespace值对应接口的全路径 -->
+<mapper namespace="com.er.pojo.OrderMapper">
+	<!-- 1、查询所有订单信息，id值为对应接口中方法的名字 
+	resultType 指定将查询的结果封装到哪个pojo对象中
+	-->
+	<select id="findAll" resultType="com.tedu.pojo.Order">
+		select  id, door_id doorId, order_no orderNo,
+		order_type orderType, pnum, cashier, 
+		order_time orderTime, pay_time payTime,
+		pay_type payType, price
+		from tb_order
+	</select>
+	
+	<!-- 2、新增订单信息  Order order
+		插入值时, 值的顺序参考tb_order表中列的顺序
+		#{}占位符中的变量名参考order类中的属性名
+	 -->
+	<update id="add">
+		insert into tb_order values
+		(null, #{doorId}, #{orderNo}, #{orderType}, 
+		#{pnum}, #{cashier}, #{orderTime}, 
+		#{payTime}, #{payType}, #{price} )
+	</update>
+	
+	<!-- 3、根据id删除订单信息  -->
+	<update id="deleteById">
+		delete from tb_order where id=#{id}
+	</update>
+	
+	<!-- 4、根据id查询订单信息 -->
+	<select id="findById" resultType="com.tedu.pojo.Order">
+		select  id, door_id doorId, order_no orderNo,
+		order_type orderType, pnum, cashier, 
+		order_time orderTime, pay_time payTime,
+		pay_type payType, price
+		from tb_order 
+		where id=#{id}
+	</select>
+	
+	<!-- 5、根据id修改订单信息
+		修改列时, 左边是列名, 右边是占位符,
+		占位符中的变量名参考order类中的属性名
+	  -->
+	<update id="updateById">
+		update tb_order set door_id=#{doorId}, 
+		order_no=#{orderNo}, order_type=#{orderType},
+		pnum=#{pnum}, cashier=#{cashier},
+		order_time=#{orderTime},pay_time=#{payTime},
+		pay_type=#{payType},price=#{price}
+		where id=#{id}
+	</update>
+	
+	<!-- 6、根据门店id删除门店下的所有订单
+		deleteOrderByDoorId -->
+	<update id="deleteOrderByDoorId">
+		delete from tb_order where door_id=#{id}
+	</update>
+
+</mapper>
