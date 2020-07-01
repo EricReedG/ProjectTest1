@@ -7,6 +7,11 @@ package com.er.controller;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+
 import com.er.dao.DoorMapper;
 import com.er.dao.OrderMapper;
 import com.er.pojo.Door;
@@ -77,7 +82,7 @@ public class OrderController {
 	/**
 	 * 5、根据id修改订单信息
 	 */
-	@RequsetMapping("/orderUpdate")
+	@RequestMapping("/orderUpdate")
 	public String orderUpdate(Order order) {
 		orderMapper.updateById(order);
 		return "forward:/orderList";

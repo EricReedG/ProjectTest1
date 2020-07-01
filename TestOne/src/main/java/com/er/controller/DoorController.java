@@ -2,6 +2,10 @@ package com.er.controller;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.er.dao.DoorMapper;
@@ -59,7 +63,7 @@ public class DoorController {
 		//查询所有门店信息，返回所有门店对象集合
 		List<Door> doorList = doorMapper.findAll();
 		//将门店对象集合存入Model中
-		model.addAtrribute("list",doorList);
+		model.addAttribute("list",doorList);
 		//转发到门店列表页面，便利所有门店信息
 		return "door_list";
 	}
@@ -95,11 +99,11 @@ public class DoorController {
 	 * 		将查询到的信息带到修改页面进行回显
 	 */
 	@RequestMapping("/doorInfo")
-	public String doorInfo(Integer id,Medel model) {
+	public String doorInfo(Integer id,Model model) {
 		//调用doorMapper的方法，根据id查询门店信息
 		Door door = doorMapper.findById(id);
 		//将门店信息存入MOdel中
-		model.addAtribute("door",door);
+		model.addAttribute("door",door);
 		//转发到门店修改页面，回显当前门店信息
 		return "door_update" ;
 	}
